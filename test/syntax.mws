@@ -1,0 +1,142 @@
+from "./src/test" import Test; // Importing components from other files.
+
+comp lazy Main(){
+
+    // ------------- Public Variables - avalible from any component below and including this.
+    let pub a: int = 5;
+    let pub b: float = 0.5;
+    let pub c: bool = true;
+    let pub d: string = "Hello, world!";
+    let pub e: object = {
+        f: 5,
+        d: 0.5,
+        h: true,
+        i: "Hello, world!"
+    };
+
+    let pub j: array = [5, 0.5, true, "Hello, world!"];
+    let pub func: function = (a: int, b: int) -> int {
+        return a + b;
+    };
+    let pub k: null = null;
+
+    // ------------- Private Variables - strict to this scope
+    let l: int = 5;
+    let func2: function = (a: int, b: int) -> int {
+        return a + b;
+    };
+
+    // ------------- Advancted type system
+    type MyType = {
+        a: int,
+        b: float,
+        c: bool,
+        d: string,
+        e: object,
+        f: array,
+        g: function
+    };
+
+    type RequestExample = {
+        request: "apple" | "banana" | "nothing",
+        success?: bool,
+        error?: Error |  null
+    }
+
+    type Request_apple + RequestExample = {
+        request: "apple",
+        success: true,
+        error: null
+    }
+
+    type Request_banana + RequestExample = {
+        request: "banana",
+        success: true,
+        error: null
+    }
+
+    type Request_nothing + RequestExample = {
+        request: "nothing",
+        success: false,
+        error: Error: {
+            message: "No request was made",
+            code: 404
+        }
+    }
+
+    //? valid
+    let request: RequestExample = {
+        request: "apple",
+        success: true,
+        error: null
+    }
+     //? invalid
+     let request: RequestExample = {
+        request: "banana",
+        success: false,
+        error: Error({
+            message: "No request was made",
+            code: 404
+        })
+    }
+
+    // ------------- Errors, warnings and OKs
+
+    let error: Error = Error({
+        message: "An error has occured",
+        code: 404
+    });
+
+    let warning: Warning = Warning({
+        message: "A warning has occured",
+        code: 404
+    });
+
+    let OK:Ok = Ok(5);
+
+    // ------------- Signals
+    signal MySignal: int;
+    //? data will also be a reponse type (Error | Ok | Warning)
+    MySignal.connect((data) -> void {
+        log(data);
+    });
+    MySignal.emit(5);
+    MySignal.destroy();
+    
+    // ------------ Global API - general data accessable everywhere.
+    let {env} = global;
+    env; // Access to the global environment variables that are set in the `.env` file.
+
+    validator(RequestExample, request); // Validate the `request` object against the `RequestExample` type.
+
+    //
+
+    // ------------ Network API
+
+    let res1: Signal = network.fetch("https://api.example.com", {
+        headers: {},
+    });
+
+    // data can be either:  Error | Ok | Warning 
+
+    res1.connect(data => {
+
+        if (data instanceof Error) {
+            log(data.message);
+        } else if (data instanceof Ok) {
+            log(data.data);
+        } else if (data instanceof Warning) {
+            log(data.message);
+        }
+
+    })
+
+    res1.terminate();
+
+    network.fetch("mwtp://api.example.com");
+
+    // ------------ crypto library
+
+    // ------------ Test Component
+
+}
