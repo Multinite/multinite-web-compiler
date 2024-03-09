@@ -53,7 +53,7 @@ fn parse_line(line: &str) {
         .map(|n| n.trim())
         .filter(|n| !n.is_empty())
         .collect::<Vec<_>>();
-    let mut minified_line = String::new();
+    let mut tokenized_line: Vec<String> = vec![];
     for token in tokens {
         let token = tokenizer(token);
         println!("{} = \"{}\"", token.token_type, token.value);
@@ -62,11 +62,10 @@ fn parse_line(line: &str) {
             println!("Unknown token: {}", token.value);
             println!("================== FAILED! ==================");
         } else {
-            // reconstruct the line but minified using the data provided by the tokenizer
-            minified_line.push_str(&token.value);
+            tokenized_line.push(token.token_type);
         }
     }
-    println!("[Minified line: {}]", minified_line);
+    println!("{:?}", tokenized_line);
 }
 
 struct Token {
