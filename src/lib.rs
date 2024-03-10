@@ -50,7 +50,7 @@ fn split_keep<'a>(r: &Regex, text: &'a str) -> Vec<&'a str> {
     result
 }
 
-pub fn parse_line(line: &str) {
+pub fn parse_line(line: &str) -> String {
     let split_re = Regex::new(r"([ ,:;]+)").expect("Invalid regex");
     let tokens = split_keep(&split_re, line)
         .into_iter()
@@ -71,9 +71,9 @@ pub fn parse_line(line: &str) {
             minimized_line.push(token.value);
         }
     }
-    println!("{:?}", tokenized_line);
-    println!("{:?}", minimized_line);
-    println!("{:?}", compress_string(&minimized_line.join(" ")));
+
+    return minimized_line.join(" ");
+
 }
 
 struct Token {
