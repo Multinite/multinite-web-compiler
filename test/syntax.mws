@@ -113,7 +113,12 @@ comp lazy Main(){
 
     // ------------ Network API
 
-    let res1: Signal = network.fetch("https://api.example.com", {
+    type ExampleResponse = {
+        data: string,
+        status: int
+    }
+
+    let res1: Signal = network.fetch("https://api.example.com", ExampleResponse  {
         headers: {},
     });
 
@@ -133,7 +138,7 @@ comp lazy Main(){
 
     res1.terminate();
 
-    network.fetch("mwtp://api.example.com");
+    network.fetch("mwtp://api.example.com", ExampleResponse);
 
     // ------------ crypto library
 

@@ -2,9 +2,11 @@ use regex::Regex;
 use std::fs::File;
 use std::io::prelude::*;
 use std::io::BufReader;
+use flate2::write::GzEncoder;
+use flate2::Compression;
 
 fn main() -> std::io::Result<()> {
-    let test_files = 3;
+    let test_files = 4;
 
     for i in 1..=test_files {
         let target_num: String;
@@ -54,6 +56,7 @@ fn parse_line(line: &str) {
         .filter(|n| !n.is_empty())
         .collect::<Vec<_>>();
     let mut tokenized_line: Vec<String> = vec![];
+    let mut minimized_line: Vec<String> = vec![];
     for token in tokens {
         let token = tokenizer(token);
         println!("{} = \"{}\"", token.token_type, token.value);
@@ -63,9 +66,12 @@ fn parse_line(line: &str) {
             println!("================== FAILED! ==================");
         } else {
             tokenized_line.push(token.token_type);
+            minimized_line.push(token.value);
         }
     }
     println!("{:?}", tokenized_line);
+    println!("{:?}", minimized_line);
+    println!("{:?}", compress_string(&minimized_line.join(" ")));
 }
 
 struct Token {
@@ -134,4 +140,10 @@ fn tokenizer(token: &str) -> Token {
         token_type: token_type.to_string(),
         value: token.to_string(),
     };
+}
+
+fn compress_string(input: &str) -> Vec<u8> {
+    let mut encoder = GzEncoder::new(Vec::new(), Compression::default());
+    encoder.write_all(input.as_bytes()).unwrap();
+    encoder.finish().unwrap()
 }
