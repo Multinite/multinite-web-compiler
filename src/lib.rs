@@ -32,7 +32,6 @@ use std::io::prelude::*;
 //     Ok(())
 // }
 
-fn main() {}
 
 //? Split a string using regex. Keep the matched string.
 fn split_keep<'a>(r: &Regex, text: &'a str) -> Vec<&'a str> {
