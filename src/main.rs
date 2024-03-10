@@ -1,37 +1,40 @@
-use regex::Regex;
-use std::fs::File;
-use std::io::prelude::*;
-use std::io::BufReader;
 use flate2::write::GzEncoder;
 use flate2::Compression;
+use regex::Regex;
+// use std::fs::File;
+use std::io::prelude::*;
+// use std::io::BufReader;
 
-fn main() -> std::io::Result<()> {
-    let test_files = 4;
+// fn main() -> std::io::Result<()> {
+//     let test_files = 4;
 
-    for i in 1..=test_files {
-        let target_num: String;
-        match i {
-            _ if i < 10 => target_num = "0".to_owned() + &i.to_owned().to_string(),
-            _ => target_num = i.to_owned().to_string(),
-        }
-        println!(
-            "================== Test: {}.mws ==================",
-            target_num
-        );
+//     for i in 1..=test_files {
+//         let target_num: String;
+//         match i {
+//             _ if i < 10 => target_num = "0".to_owned() + &i.to_owned().to_string(),
+//             _ => target_num = i.to_owned().to_string(),
+//         }
+//         println!(
+//             "================== Test: {}.mws ==================",
+//             target_num
+//         );
 
-        let file = format!("./test/{}.mws", target_num);
-        let f = File::open(file)?;
-        let reader = BufReader::new(f);
+//         let file = format!("./test/{}.mws", target_num);
+//         let f = File::open(file)?;
+//         let reader = BufReader::new(f);
 
-        for line in reader.lines() {
-            let line = line?;
-            parse_line(&line);
-        }
-    }
+//         for line in reader.lines() {
+//             let line = line?;
+//             parse_line(&line);
+//         }
+//     }
 
-    Ok(())
-}
+//     Ok(())
+// }
 
+fn main() {}
+
+//? Split a string using regex. Keep the matched string.
 fn split_keep<'a>(r: &Regex, text: &'a str) -> Vec<&'a str> {
     let mut result = Vec::new();
     let mut last = 0;
@@ -48,7 +51,7 @@ fn split_keep<'a>(r: &Regex, text: &'a str) -> Vec<&'a str> {
     result
 }
 
-fn parse_line(line: &str) {
+pub fn parse_line(line: &str) {
     let split_re = Regex::new(r"([ ,:;]+)").expect("Invalid regex");
     let tokens = split_keep(&split_re, line)
         .into_iter()
