@@ -1,8 +1,8 @@
-use flate2::write::GzEncoder;
-use flate2::Compression;
+// use flate2::write::GzEncoder;
+// use flate2::Compression;
 use regex::Regex;
 // use std::fs::File;
-use std::io::prelude::*;
+// use std::io::prelude::*;
 // use std::io::BufReader;
 
 // fn main() -> std::io::Result<()> {
@@ -144,8 +144,3 @@ fn tokenizer(token: &str) -> Token {
     };
 }
 
-fn compress_string(input: &str) -> Vec<u8> {
-    let mut encoder = GzEncoder::new(Vec::new(), Compression::default());
-    encoder.write_all(input.as_bytes()).unwrap();
-    encoder.finish().unwrap()
-}
