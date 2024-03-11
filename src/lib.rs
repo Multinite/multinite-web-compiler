@@ -32,7 +32,6 @@ use regex::Regex;
 //     Ok(())
 // }
 
-
 //? Split a string using regex. Keep the matched string.
 fn split_keep<'a>(r: &Regex, text: &'a str) -> Vec<&'a str> {
     let mut result = Vec::new();
@@ -73,7 +72,6 @@ pub fn parse_line(line: &str) -> String {
     }
 
     return minimized_line.join(" ");
-
 }
 
 struct Token {
@@ -143,4 +141,3 @@ fn tokenizer(token: &str) -> Token {
         value: token.to_string(),
     };
 }
-
