@@ -145,3 +145,18 @@ comp lazy Main(){
     // ------------ Test Component
 
 }
+
+comp Name [
+    // configuration:
+    lazys; settings-on; id-(hello world);
+    // small:
+    color-red; color-blue; color-green; 
+    // medium:
+    color-blue; color-red; color-green;
+    // large:
+    color-green; hello-world; world-hello;
+]{
+    int pub a = 1;
+}
+
+

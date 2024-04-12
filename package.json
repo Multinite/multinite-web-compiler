@@ -1,0 +1,23 @@
+{
+  "name": "multinite-web-compiler",
+  "version": "alpha-0.1.0",
+  "description": "Compile your Multinite Web code for the Multinite browser!",
+  "main": "index.js",
+  "private": false,
+  "author": "Multinite",
+  "license": "ISC",
+  "repository": {
+    "url": "https://github.com/Multinite/multinite-web-compiler/tree/version-alpha-0.1.0"
+  },
+  "directories": {
+    "example": "example",
+    "test": "test"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "multinite",
+    "web-compiler"
+  ]
+}
